@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  ports:
+  - port: 3306
+  selector:
+    app: mysql
+  type: LoadBalancer
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - image: mysql:8.0
+        name: mysql-service
+        env:
+        - name: MYSQL_DATABASE
+          value: 'mysql-service-db'
+        # So you don't have to use root, but you can if you like
+        - name: MYSQL_USER
+          value: 'sa'
+         # You can use whatever password you like Use secret in real usage
+        - name: MYSQL_PASSWORD
+          value: 'password@123'
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: 'root'
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim

@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
- @Query("SELECT m FROM Product m join Category  c on c.id=m.categoryId WHERE  CONCAT(c.name, '', m.name, '', m.description, '', c.description) LIKE %:searchKey%")
-    List<Product> findProduct(@Param("searchKey") String searchKey);
+ @Query("SELECT m FROM Product m  left outer join  Category  c on c.id=m.categoryId WHERE  CONCAT(COALESCE(c.name,''), '', m.name, '', m.description, '', COALESCE(c.description,'')) LIKE %:searchKey%")
+    List<Product> findProduct( String searchKey);
+
+
 }

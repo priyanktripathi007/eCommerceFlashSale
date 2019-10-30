@@ -8,9 +8,12 @@ import lombok.Setter;
 import java.io.Serializable;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class Response implements Serializable {
     private String message;
+
+    public Response(String message) {
+        this.message = message;
+    }
 }

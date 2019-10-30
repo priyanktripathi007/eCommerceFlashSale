@@ -1,0 +1,4 @@
+FROM openjdk:8
+ADD target/userManagement.jar userManagement.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","userManagement.jar"]

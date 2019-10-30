@@ -32,6 +32,9 @@ public class User implements Serializable {
     private Long id;
     private int deleteStatus;
     private String name;
+    private String username;
+    private String password;
+    private int active;
     private String email;
     private String phone;
     private String createdBy;
