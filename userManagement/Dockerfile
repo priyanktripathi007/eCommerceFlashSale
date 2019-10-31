@@ -1,4 +1,5 @@
 FROM openjdk:8
-ADD $PWD/target/userManagement-0.0.1-SNAPSHOT.jar userManagement.jar
+ARG drc
+ADD $drc/target/userManagement-0.0.1-SNAPSHOT.jar userManagement.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","userManagement.jar"]
