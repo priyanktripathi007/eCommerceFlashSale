@@ -19,3 +19,4 @@ spec:
           image: priyanktripathi007/priyank_images:user-management
           ports:
             - containerPort: 8085
+
