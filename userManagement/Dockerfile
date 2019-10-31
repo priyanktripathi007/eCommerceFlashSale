@@ -1,5 +1,0 @@
-FROM openjdk:8
-ARG drc
-ADD $drc/target/userManagement-0.0.1-SNAPSHOT.jar userManagement.jar
-EXPOSE 8080
-ENTRYPOINT ["java","-jar","userManagement.jar"]
